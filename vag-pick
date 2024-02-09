@@ -3,11 +3,44 @@
 
 # vagrant global-status|awk 'length($1) == 7'
 
+if [ $# -eq 0 ]
+then
+echo "normal vap flag"
+VAP_HOST=$(vagrant global-status \
+| awk 'length($1) == 7 && substr($5, 1, 1) == "/"' \
+| fzf \
+| awk '{print $1}')
+
+echo "vap host is: $VAP_HOST"
+
+VAP_SELECT=$(echo "up\nssh\nhalt" \
+| fzf --header="what do you wanna do with host: $VAP_HOST")
+
+echo $VAP_SELECT
+fi
 
 if [ "$1" = "halt" ]
 then
 echo "halt flag"
 vagrant halt $(vagrant global-status \
+| awk 'length($1) == 7 && substr($5, 1, 1) == "/"' \
+| fzf \
+| awk '{print $1}')
+fi
+
+if [ "$1" = "up" ]
+then
+echo "up flag"
+vagrant up $(vagrant global-status \
+| awk 'length($1) == 7 && substr($5, 1, 1) == "/"' \
+| fzf \
+| awk '{print $1}')
+fi
+
+if [ "$1" = "ssh" ]
+then
+echo "ssh flag"
+vagrant ssh $(vagrant global-status \
 | awk 'length($1) == 7 && substr($5, 1, 1) == "/"' \
 | fzf \
 | awk '{print $1}')
