@@ -3,7 +3,12 @@
 
 # vagrant global-status|awk 'length($1) == 7'
 
+
+if [ "$1" = "halt" ]
+then
+echo "halt flag"
 vagrant halt $(vagrant global-status \
 | awk 'length($1) == 7 && substr($5, 1, 1) == "/"' \
 | fzf \
 | awk '{print $1}')
+fi
