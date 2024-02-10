@@ -1,7 +1,8 @@
 # vagrant-pick
-maximize vagrant's potential
+maximize vagrant's potential  
+you can `up, halt, ssh` VM by just typing "vap"  
 
-you can `up, halt, ssh` VM by just typing "vap"
+<img width="683" alt="Screenshot 2024-02-10 at 17 31 05" src="https://github.com/taromn/vagrant-pick/assets/54003207/c8c5251f-4ada-451d-b0b4-4cf442ed6de2">
 
 # preparation
 1. put the "vap" script into your directory
