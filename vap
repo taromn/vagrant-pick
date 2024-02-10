@@ -5,19 +5,28 @@
 
 if [ $# -eq 0 ]
 then
-echo "normal vap flag"
-VAP_HOST=$(vagrant global-status \
+# echo "normal vap flag"
+VAP_LINE=$(vagrant global-status \
 | awk 'length($1) == 7 && substr($5, 1, 1) == "/"' \
-| fzf \
-| awk '{print $1}')
+| fzf)
 
+VAP_HOST=$(echo $VAP_LINE | awk '{print $1}')
 echo "vap host is: $VAP_HOST"
+
+VAP_CWD=$(echo $VAP_LINE | awk '{print $5}')
+# echo "vagrant cwd is:$VAP_CWD"
 
 VAP_SELECT=$(echo "up\nssh\nhalt" \
 | fzf --header="what do you wanna do with host: $VAP_HOST")
 
 echo $VAP_SELECT
+
+cd $VAP_CWD
+# echo "pwd is $PWD"
+vagrant $VAP_SELECT $VAP_HOST
+
 fi
+
 
 if [ "$1" = "halt" ]
 then
