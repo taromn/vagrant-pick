@@ -8,7 +8,7 @@ then
 # echo "normal vap flag"
 VAP_LINE=$(vagrant global-status \
 | awk 'length($1) == 7 && substr($5, 1, 1) == "/"' \
-| fzf)
+| fzf --header="which VM?")
 
 VAP_HOST=$(echo $VAP_LINE | awk '{print $1}')
 echo "vap host is: $VAP_HOST"
